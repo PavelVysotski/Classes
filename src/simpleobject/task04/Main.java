@@ -2,6 +2,7 @@ package simpleobject.task04;
 
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -35,19 +36,7 @@ public class Main {
                     infoByNumber();
                     break;
                 case 4:
-                    //Видимо этот вариант сортировки нужно делать через коллекцию, что-то не выходит.
-                    Train temp;
-                    for ( int i = 0; i < trains.length - 1; i++ ) {
-                        for ( int j = 0; j < trains.length - i - 1; j++ ) {
-                            if (trains[i].getDestination() == trains[i].getDestination() & trains[i].getDepTime() > trains[j + 1].getDepTime()) {
-                                temp = trains[j];
-                                trains[j] = trains[j + 1];
-                                trains[j + 1] = temp;
-                            }
-
-                        }
-                    }
-                    showAllList();
+                    sortByDestination();
                     break;
                 case 5:
                     cycle = false;
@@ -101,6 +90,16 @@ public class Main {
         }
     }
 
+    public static void sortByDestination() {
+        List<Train> listTrain = Arrays.asList(trains);
+        Comparator<Train> compTrain;
+        compTrain = (t1, t2) -> t1.getDestination().toLowerCase().compareTo(t2.getDestination().toLowerCase());
+        compTrain = compTrain.thenComparing((t1, t2) -> Integer.valueOf(t1.getDepTime()).compareTo(t2.getDepTime()));
+        listTrain.sort(compTrain);
+        for ( Train t : listTrain ) {
+            System.out.println(t);
+        }
+    }
 
     public static void showAllList() {
         for ( int i = 0; i < trains.length; i++ ) {
@@ -117,9 +116,9 @@ public class Main {
     public static void menuAction() {
         System.out.println();
         System.out.println("1. Показать расписание поездов.");
-        System.out.println("2. Показать расписание по возрастанию номера поездов.");
+        System.out.println("2. Сортировка расписания по номеру поезда.");
         System.out.println("3. Показать информацию по номеру поезда.");
-        System.out.println("4. Сортировка по пункту назаначения.");
+        System.out.println("4. Сортировка расписания по пункту назначения и времени.");
         System.out.println("5. Выход");
     }
 

@@ -42,4 +42,6 @@ public class Train {
     public String toString() {
         return "пункт назначения - " + destination + ", номер поезда - " + trainNumber +", время отправления - " + depTime;
     }
+
+
 }
